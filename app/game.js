@@ -1,1 +1,9 @@
-console.log('working')
+let health = 100;
+
+function slap() {
+  health--
+
+}
+
+
+

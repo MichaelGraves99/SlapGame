@@ -55,9 +55,6 @@ function addMods() {
   return modTotal;
 }
 
-
-
-
 function slap() {
   ryu.health -= (1 + addMods());
   ryu.hits++
@@ -79,9 +76,5 @@ function update() {
   document.getElementById('hits').innerText = `${ryu.hits}`
 
 }
-
-
-
-
 
 update();

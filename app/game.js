@@ -30,7 +30,7 @@ let items = {
     modifier: 4,
     description: 'IT BURNS!'
   },
-  ice: {
+  hammer: {
     name: 'Hammer',
     modifier: 2,
     description: 'Ouch!!'
@@ -42,8 +42,8 @@ let items = {
   }
 }
 
-function giveItem() {
-  ryu.items.push(items.fire)
+function giveItem(item) {
+  ryu.items.push(items[item])
 
 }
 

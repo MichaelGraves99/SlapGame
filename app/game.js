@@ -1,80 +1,58 @@
-let ken = {
-  health: 120,
-  hits: 0,
-  attacks: {
-    kick: 20,
-    punch: 15,
-    uppercut: 30,
-    hadouken: 40
-  },
-  mobility: 35,
-  items: []
-}
-
 let ryu = {
   health: 100,
   hits: 0,
   attacks: {
-    kick: 15,
-    punch: 10,
-    uppercut: 25,
-    hadouken: 60
+    Kick: 6,
+    Punch: 3,
+    Slap: 1
+  },
+  modifiers: {
+    Fire: 3,
+    Power: 1,
+    Thunder: 2
   },
   mobility: 55,
-  items: []
+  modDamageT: 0
 }
 
-let items = {
-  fire: {
-    name: 'Fire',
-    modifier: 4,
-    description: 'IT BURNS!'
-  },
-  hammer: {
-    name: 'Hammer',
-    modifier: 2,
-    description: 'Ouch!!'
-  },
-  thunder: {
-    name: 'Thunder',
-    modifier: 3,
-    description: 'Its so LOUD!!'
+function modDamageA(damage) {
+  ryu.modDamageT += damage;
+}
+
+function action(baseDamage) {
+  ryu.health -= (baseDamage + ryu.modDamageT);
+  ryu.hits++;
+  ryu.modDamageT = 0;
+  if (ryu.health < 0) {
+    ryu.health = 0;
   }
-}
-
-function giveItem(item) {
-  ryu.items.push(items[item])
-
-}
-
-function addMods() {
-  let modTotal = 0;
-  for (let i = 0; i < ryu.items.length; i++) {
-    modTotal += ryu.items[i].modifier
-  }
-  return modTotal;
-}
-
-function slap() {
-  ryu.health -= (1 + addMods());
-  ryu.hits++
-  update();
-}
-function punch() {
-  ryu.health -= (5 + addMods());
-  ryu.hits++
-  update();
-}
-function kick() {
-  ryu.health -= (10 + addMods());
-  ryu.hits++
   update();
 }
 
 function update() {
+  $('.progress-bar').css('width', ryu.health + '%').attr('aria-valuenow', ryu.health);
   document.getElementById('health').innerText = `${ryu.health}`
   document.getElementById('hits').innerText = `${ryu.hits}`
+}
 
+function drawButtons() {
+  let attackBtns = '';
+  let modifierBtns = '';
+  let attacks = (Object.keys(ryu.attacks));
+  let attackDamage = (Object.values(ryu.attacks));
+  let modifiers = (Object.keys(ryu.modifiers));
+  let modDamage = (Object.values(ryu.modifiers));
+  console.log(attacks);
+  console.log(attackDamage);
+  console.log(modifiers);
+  console.log(modDamage);
+  for (let a = 0; a < attacks.length; a++) {
+    attackBtns += `<button type="button" class="btn btn-lg btn-danger mx-2" onclick="action(${attackDamage[a]})">${attacks[a]}</button>`
+    modifierBtns += `<button type="button" class="btn btn-lg btn-success mx-2" onclick="modDamageA(${modDamage[a]})">${modifiers[a]}</button>`
+  }
+  document.getElementById('attackButtons').innerHTML = attackBtns;
+  document.getElementById('modifierButtons').innerHTML = modifierBtns;
 }
 
 update();
+drawButtons();

@@ -4,12 +4,14 @@ let ryu = {
   attacks: {
     Kick: 6,
     Punch: 3,
-    Slap: 1
+    Slap: 1,
+    BlueShell: 9
   },
   modifiers: {
-    Fire: 3,
+    Fire: 4,
     Power: 1,
-    Thunder: 2
+    Thunder: 2,
+    Turbo: 3
   },
   mobility: 55,
   modDamageT: 0
